@@ -6,16 +6,11 @@ import matplotlib.pyplot as plt
 img_normal = mpimg.imread("chest_normal.jpg", 1)
 img_noise = mpimg.imread("chest_noise.jpg", 1)
 
-#Tiger
-img_denoise5_t = cv2.fastNlMeansDenoising(img_noise,None, 22, 22, 4)#0.7640595777809923
-#img_denoise6_t = cv2.fastNlMeansDenoisingColored(img_noise,None, 30, 24, 18, 5)#0.7639196542961436
+#Plot Test
+img_denoise = cv2.fastNlMeansDenoisingColored(img_noise,None, 30, 24, 18, 5)#0.7639196542961436
 
 
-#McGregor
-#img_denoise2_MC = cv2.fastNlMeansDenoisingColored(img_noise,None, 22, 32, 5, 11)#0.8620902320515246
-
-
-aux = ssim(img_normal, img_denoise5_t, multichannel=True)
+aux = ssim(img_normal, img_denoise5, multichannel=True)
 aux2 = ssim(img_normal, img_noise, multichannel=True)
 
 fig = plt.figure()
