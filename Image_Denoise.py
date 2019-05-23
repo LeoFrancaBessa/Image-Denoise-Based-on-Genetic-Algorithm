@@ -13,7 +13,7 @@ fit_first_pop = AG.computePerfPopulation(population)
 tracker = []
 
 i=0
-while(i<=10):
+while(i<=20):
     sorted_population =  AG.computePerfPopulation(population)
     tracker.append(sorted_population[0][1])
     '''
