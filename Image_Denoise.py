@@ -21,7 +21,7 @@ tracker = []
 
 #Genetic Algorithm flow with 20 interations(can change)
 i=0
-while(i<=20):
+while(i<=30):
     sorted_population =  AG.computePerfPopulation(population)
     tracker.append(sorted_population[0][1])
     pais = AG.selectFromPopulation(sorted_population, 2, 4)
@@ -41,7 +41,7 @@ ssim_noise = ssim(AG.img_normal, AG.img_noise, multichannel=True)
 
 
 #Ploting
-fig = plt.figure()
+fig = plt.figure(num='Results')
 ax1 = fig.add_subplot(2,2,1)
 ax1.set_title("Original")
 ax1.imshow(AG.img_normal)
@@ -58,11 +58,11 @@ ax3 = fig.add_subplot(2,2,3)
 ax3.set_title("SSIM Noise: " + str(ssim_noise))
 ax3.imshow(AG.img_noise)
 plt.axis('off')
+plt.show()
 
 
-'''
+plt.figure(num='Fitness History')
 plt.plot(tracker)
-plt.ylabel('Tracking')
+plt.ylabel('Fitness')
 plt.xlabel('Nº de Gerações')
 plt.show()
-'''
