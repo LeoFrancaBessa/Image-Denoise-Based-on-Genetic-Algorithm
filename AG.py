@@ -5,7 +5,7 @@ from random import randint
 import operator
 import random
 
-img_normal = None
+#img_normal = None
 img_noise = None
 
 
