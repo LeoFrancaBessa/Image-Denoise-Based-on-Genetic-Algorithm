@@ -6,12 +6,12 @@ import cv2
 
 
 #Load Images
-AG.img_normal = mpimg.imread("chest_normal.jpg", 1)
+#AG.img_normal = mpimg.imread("chest2.jpg", 1)
 AG.img_noise = mpimg.imread("chest_noise.jpg", 1)
 
 
 #Global Variables
-population = AG.firstPopulation(12)
+population = AG.firstPopulation(30)
 fit_first_pop = AG.computePerfPopulation(population)
 
 
@@ -19,7 +19,7 @@ fit_first_pop = AG.computePerfPopulation(population)
 tracker = []
 
 
-#Genetic Algorithm flow with 20 interations(can change)
+#Genetic Algorithm flow with n interations(can change)
 i=0
 while(i<=30):
     sorted_population =  AG.computePerfPopulation(population)
@@ -58,7 +58,6 @@ ax3 = fig.add_subplot(2,2,3)
 ax3.set_title("SSIM Noise: " + str(ssim_noise))
 ax3.imshow(AG.img_noise)
 plt.axis('off')
-plt.show()
 
 
 plt.figure(num='Fitness History')
