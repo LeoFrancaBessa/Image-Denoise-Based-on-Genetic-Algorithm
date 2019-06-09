@@ -1,5 +1,6 @@
 import cv2
-from skimage.measure import compare_ssim as ssim
+#from skimage.measure import compare_ssim as ssim
+from astropy.stats import median_absolute_deviation as mad
 from random import randint
 import operator
 import random
@@ -11,14 +12,14 @@ img_noise = None
 def firstPopulation(size):
     population = []
     for i in range(size):
-        population.append((randint(1, 40), randint(1, 40), randint(1, 10)))
+        population.append((randint(1, 40), randint(1, 40), randint(1, 6)))
     return population
 
 
 def fitness(h, twindows, swindows):
     
     img_denoise = cv2.fastNlMeansDenoising(img_noise,None, h, twindows, swindows)
-    s_denoise = ssim(img_normal, img_denoise, multichannel=True)
+    s_denoise = 1/mad(img_denoise, axis=None)
     return s_denoise
 
 
@@ -40,7 +41,7 @@ def selectFromPopulation(populationSorted, best_sample, lucky_few):
 
 
 def createChild(pai1, pai2):
-    child = ((pai1[0], pai2[1], pai1[2]))
+    child = ((pai1[0], pai1[1], pai2[2]))
     return child
 
 def next_generation(population):
