@@ -1,10 +1,11 @@
 import cv2
-from skimage.measure import compare_ssim as ssim
+#from skimage.measure import compare_ssim as ssim
+from astropy.stats import median_absolute_deviation as mad
 from random import randint
 import operator
 import random
 
-img_normal = None
+#img_normal = None
 img_noise = None
 
 
@@ -18,7 +19,7 @@ def firstPopulation(size):
 def fitness(h, twindows, swindows):
     
     img_denoise = cv2.fastNlMeansDenoising(img_noise,None, h, twindows, swindows)
-    s_denoise = ssim(img_normal, img_denoise, multichannel=True)
+    s_denoise = 1/mad(img_denoise, axis=None)
     return s_denoise
 
 
