@@ -1,13 +1,12 @@
 import AG
 import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
-from skimage.measure import compare_ssim as ssim
+#import matplotlib.pyplot as plt
 import cv2
 
 
 #Carrega Imagens
-AG.img_normal = mpimg.imread("chest2.jpg", 1)
-AG.img_noise = mpimg.imread("chest2_noise.jpg", 1)
+image = "normal2"
+AG.img_noise = mpimg.imread(image+".jpeg", 1)
 
 
 #Variaveis Globais
@@ -21,45 +20,39 @@ tracker = []
 
 #Loop do AG
 i=0
-while(i<=20):
+while(i<=30):
     sorted_population =  AG.computePerfPopulation(population)
     tracker.append(sorted_population[0][1])
     pais = AG.selectFromPopulation(sorted_population, 2, 4)
     population = AG.next_generation(pais)
     AG.mutatePopulation(population, 20)
+    print(i)
     i+=1
 
 
 #Pega o melhor individuo da população
 best = sorted_population[0][0]
+
+
 #Aplica o filtro a este individuo
 img_denoise = cv2.fastNlMeansDenoising(AG.img_noise,None, best[0], best[1], best[2])
 
 
-#Calculo para saber a qualidade da imagem
-ssim_denoise = ssim(AG.img_normal, img_denoise, multichannel=True)
-ssim_noise = ssim(AG.img_normal, AG.img_noise, multichannel=True)
+cv2.imshow("teste", img_denoise)
+cv2.imwrite(image+'_filtro.jpeg', img_denoise)
 
-
+'''
 #Plotando a original
 fig = plt.figure(num='Results')
 ax1 = fig.add_subplot(2,2,1)
 ax1.set_title("Original")
-ax1.imshow(AG.img_normal)
-plt.axis('off')
-
-
-#Plotando a com ruido
-ax2 = fig.add_subplot(2,2,2)
-ax2.set_title("SSIM Filter: " + str(ssim_denoise))
-ax2.imshow(img_denoise)
+ax1.imshow(AG.img_noise)
 plt.axis('off')
 
 
 #Plotando a imagem com o filtro
 ax3 = fig.add_subplot(2,2,3)
-ax3.set_title("SSIM Noise: " + str(ssim_noise))
-ax3.imshow(AG.img_noise)
+ax3.imshow(AG.img_denoise)
 plt.axis('off')
 
 
@@ -68,3 +61,4 @@ plt.plot(tracker)
 plt.ylabel('Fitness')
 plt.xlabel('Nº de Gerações')
 plt.show()
+'''
