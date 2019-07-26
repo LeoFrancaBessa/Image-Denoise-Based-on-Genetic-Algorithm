@@ -7,7 +7,6 @@ import random
 
 #Declarando as imagens como variaveis globais
 #noise = ruído
-img_normal = None
 img_noise = None
 
 
